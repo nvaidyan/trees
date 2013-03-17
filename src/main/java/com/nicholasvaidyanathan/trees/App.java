@@ -3,6 +3,7 @@ package com.nicholasvaidyanathan.trees;
 import java.util.Iterator;
 
 import com.nicholasvaidyanathan.trees.domain.BinaryTree;
+import com.nicholasvaidyanathan.trees.domain.TraversalMode;
 import com.nicholasvaidyanathan.trees.factories.BinaryTreeFactory;
 
 /**
@@ -62,10 +63,10 @@ public class App
     
 	public static void main( String[] args )
     {
-//        toaster = initializeTreeA();
-//        printTree(toaster);
-        toaster = initializeTreeB();
+		toaster = initializeTreeA();
+		toaster.setMode(TraversalMode.LEVEL);
         printTree(toaster);
+        toaster = initializeTreeB();
     }
 	
 	private static void printTree(BinaryTree<Integer> toPrint) {

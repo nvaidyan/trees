@@ -9,7 +9,7 @@ import com.nicholasvaidyanathan.trees.domain.iterators.LevelorderIterator;
 import com.nicholasvaidyanathan.trees.domain.iterators.PostorderIterator;
 import com.nicholasvaidyanathan.trees.domain.iterators.PreorderIterator;
 
-public class BinaryTreeIteratorFactory<T> {
+public class BinaryTreeIteratorFactory<T extends Comparable<T>> {
 
 	public Iterator<BinaryTree<T>> createIterator(TraversalMode mode, BinaryTree<T> root) {
 		switch(mode) {

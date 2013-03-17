@@ -1,33 +1,37 @@
 package com.nicholasvaidyanathan.trees.domain.iterators;
 
 import java.util.Iterator;
-import java.util.PriorityQueue;
+import java.util.List;
+import java.util.LinkedList;
 import java.util.Queue;
 
 import com.nicholasvaidyanathan.trees.domain.BinaryTree;
 
-public class LevelorderIterator<T> implements Iterator<BinaryTree<T>> {
-	private Queue<BinaryTree<T>> nodes;
+public class LevelorderIterator<T extends Comparable<T>> implements Iterator<BinaryTree<T>> {
+	private List<BinaryTree<T>> nodes;
 	private Iterator<BinaryTree<T>> it;
 	
 	public LevelorderIterator(BinaryTree<T> root) {
-		nodes = new PriorityQueue<BinaryTree<T>>();
+		nodes = new LinkedList<BinaryTree<T>>();
 		traverse(root);
 		it = nodes.iterator();
 	}
 	
 	private void traverse(BinaryTree<T> node) {
-		if(node != null){
-			BinaryTree<T> left = node.getLeft();
-			BinaryTree<T> right = node.getRight(); 
-			nodes.add(node);
+		Queue<BinaryTree<T>> items = new LinkedList<BinaryTree<T>>();
+		items.add(node);
+		while(!items.isEmpty()){
+			BinaryTree<T> iterating = items.remove();
+			nodes.add(iterating);
+			BinaryTree<T> left = iterating.getLeft();
+			BinaryTree<T> right = iterating.getRight(); 
+			
 			if(left != null) {
-				nodes.add(left);
+				items.add(left);
 			}
 			if(right != null) {
-				nodes.add(right);
+				items.add(right);
 			}
-			traverse(nodes.remove());
 		}
 	}
 

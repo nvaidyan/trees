@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.nicholasvaidyanathan.trees.domain.BinaryTree;
 
-public class PostorderIterator<T> implements Iterator<BinaryTree<T>> {
+public class PostorderIterator<T extends Comparable<T>> implements Iterator<BinaryTree<T>> {
 	private List<BinaryTree<T>> nodes;
 	private Iterator<BinaryTree<T>> it;
 	

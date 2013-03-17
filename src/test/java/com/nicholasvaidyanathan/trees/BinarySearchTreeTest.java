@@ -1,6 +1,10 @@
 package com.nicholasvaidyanathan.trees;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Iterator;
 
@@ -9,9 +13,12 @@ import org.junit.Test;
 
 import com.nicholasvaidyanathan.trees.domain.BinarySearchTree;
 import com.nicholasvaidyanathan.trees.domain.BinaryTree;
+import com.nicholasvaidyanathan.trees.domain.TraversalMode;
+import com.nicholasvaidyanathan.trees.domain.iterators.LevelorderIterator;
+import com.nicholasvaidyanathan.trees.domain.iterators.PreorderIterator;
 
 public class BinarySearchTreeTest {
-	BinarySearchTree<String> toTest;
+	BinaryTree<String> toTest;
 	String data;
 	
 	@Before
@@ -65,8 +72,28 @@ public class BinarySearchTreeTest {
 			nodes++;
 		}
 		assertEquals(2, nodes);
-		
-		
+	}
+	
+	@Test
+	public void canSetMode() {
+		assertTrue(toTest.iterator() instanceof PreorderIterator);
+		toTest.setMode(TraversalMode.LEVEL);
+		assertTrue(toTest.iterator() instanceof LevelorderIterator);
+	}
+	
+	@Test
+	public void canPrint() {
+		String expected = String.format("data: foo%nleft: null%nright: null");
+		assertEquals(expected, toTest.toString());
+	}
+	
+	@Test
+	public void canCompare() {
+		BinaryTree<String> nullTree = new BinarySearchTree<String>(null);
+		assertEquals(0, nullTree.compareTo(new BinarySearchTree<String>(null)));
+		assertEquals(1, toTest.compareTo(nullTree));
+		assertTrue(toTest.compareTo(new BinarySearchTree<String>("zeeman")) < 0);
+		assertTrue(toTest.compareTo(new BinarySearchTree<String>("")) > 0);
 	}
 
 }
